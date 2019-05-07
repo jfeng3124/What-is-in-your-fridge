@@ -2,18 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import RecipesList from './components/RecipesList.jsx';
-// import Recipe from './components/Recipe.jsx';
+import Pagination from './components/Pagination.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
       ingredients: '',
-      recipes: null
+      allRecipes: null,
+      recipes: null,
+      recipe: null,
+      currentRecipes: null,
+      currentPage: 1,
+      totalPages: 1
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    // this.onClick = this.onClick.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.scrollToTopOfFeed = this.scrollToTopOfFeed.bind(this);
   }
 
   onChange(e) {
@@ -31,23 +37,15 @@ class App extends React.Component {
   getData() {
     axios.get('/api/recipes')
       .then(response => {
-        this.setState({ recipes: response.data})
+        this.setState({ 
+          allRecipes: response.data,
+          recipes: response.data.slice(0, 10), 
+          totalPages: Math.round(response.data.length / 10),
+          currentRecipes: response.data
+        })
       })
       .catch(err => console.log(err))
   }
-
-  // getRecipeInfo() {
-  //   axios.get('/api/recipe')
-  //     .then(response => {
-  //       this.setState({ recipe: response.data })
-  //       console.log('response', this.state.recipe)
-  //     })
-  // }
-  
-  // onClick(e) {
-  //   e.preventDefault();
-  //   this.getRecipeInfo();
-  // }
 
   onSubmit(e) {
     e.preventDefault();
@@ -56,31 +54,42 @@ class App extends React.Component {
     console.log(this.state)
   }
 
+  handlePageChange(page) {
+    const { currentRecipes } = this.state;
+    this.setState({
+      recipes: currentRecipes.slice((page - 1) * 10, page * 10),
+      currentPage: page
+    });
+  }
+
+  scrollToTopOfFeed() {
+    document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
+  }
+
   render() {
-    if (!this.state.recipes) {
+    const {currentPage, totalPages} = this.state
+    if (!this.state.allRecipes) {
       return (
         <div id='main-page'>
-          <h1>What's for Dinner?</h1>
-            <form onSubmit={this.onSubmit}>
-              Please separate ingredients by commas (example: apple,sugar,cinnamon)
-              <input type='text' id='input-box' value={this.state.ingredients} placeholder="What's in your fridge?" onChange={this.onChange} />
-              <input type='submit' value='Submit' />
+          <h1>What's in your fridge?</h1>
+            <form onSubmit={this.onSubmit} id={'form'}>
+              <label>Please separate ingredients by commas (example: apple, sugar, cinnamon)</label><br/>
+              <input type='text' id='input-box' value={this.state.ingredients} onChange={this.onChange} /><br/>
+              <input type='submit' value='Submit' id='submit' />
             </form>
         </div>
       )
     }
-    // if (!this.state.recipe) {
-    //   return (
-    //     <div>
-    //     <h1>What's for Dinner?</h1>
-    //     <Recipe recipe={this.state.recipe}/>
-    //   </div>
-    //   )
-    // }
     return (
-    <div>
+    <div id='recipe-list'>
       <h1>What's for Dinner?</h1>
       <RecipesList recipes={this.state.recipes} />
+      <Pagination
+          handlePageChange={this.handlePageChange}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          scrollToTopOfFeed={this.scrollToTopOfFeed}
+        />
     </div>)
   }
 }
