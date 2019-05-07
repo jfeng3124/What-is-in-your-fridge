@@ -1,6 +1,4 @@
 body {
-  /* font-family: 'Futura', sans-serif; */
-  /* font-family: 'Poppins', sans-serif; */
   font-family: 'Raleway', sans-serif;
   background-color: #FECEAB;
   color: #355C7D;
@@ -10,6 +8,10 @@ label {
   font-size: 12px;
   font-style: italic;
   color: #355C7D;
+}
+
+h1 {
+    font-family: 'Futura', sans-serif;
 }
 
 #app {
@@ -27,7 +29,7 @@ label {
 }
 
 #form {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 #submit {
