@@ -25,7 +25,7 @@ app.get('/api/recipes', (req, res) => {
       list += ingredientList[i] + '%2C'
     }
     list = list.slice(0, list.length-3)
-    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=50&ranking=1&ingredients=${list}`, {
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=56&ranking=1&ingredients=${list}`, {
       headers: {
         'X-RapidAPI-Key': key
       },
@@ -45,7 +45,6 @@ app.get('/api/recipe/:id', (req, res) => {
     }
   })
     .then(response => {
-      console.log('recipe info', response.data)
       res.send(response.data)
     })
     .catch(err => console.log(err))
