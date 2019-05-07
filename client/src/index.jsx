@@ -14,7 +14,8 @@ class App extends React.Component {
       recipe: null,
       currentRecipes: null,
       currentPage: 1,
-      totalPages: 1
+      totalPages: 1,
+      homePage: false
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,8 +40,8 @@ class App extends React.Component {
       .then(response => {
         this.setState({ 
           allRecipes: response.data,
-          recipes: response.data.slice(0, 10), 
-          totalPages: Math.round(response.data.length / 10),
+          recipes: response.data.slice(0, 9), 
+          totalPages: Math.round(response.data.length / 9),
           currentRecipes: response.data
         })
       })
@@ -51,13 +52,18 @@ class App extends React.Component {
     e.preventDefault();
     this.sendData();
     this.getData();
-    console.log(this.state)
+    this.setState({ingredients: '', homePage: false});
+  }
+
+  returnHome(e) {
+    e.preventDefault();
+    this.setState({homePage:true});
   }
 
   handlePageChange(page) {
     const { currentRecipes } = this.state;
     this.setState({
-      recipes: currentRecipes.slice((page - 1) * 10, page * 10),
+      recipes: currentRecipes.slice((page - 1) * 9, page * 9),
       currentPage: page
     });
   }
@@ -67,22 +73,22 @@ class App extends React.Component {
   }
 
   render() {
-    const {currentPage, totalPages} = this.state
-    if (!this.state.allRecipes) {
+    const {currentPage, totalPages, allRecipes, homePage} = this.state;
+    if (!allRecipes || homePage === true) {
       return (
         <div id='main-page'>
           <h1>What's in your fridge?</h1>
-            <form onSubmit={this.onSubmit} id={'form'}>
+            <form onSubmit={this.onSubmit} id={'form'} autoComplete="off">
               <label>Please separate ingredients by commas (example: apple, sugar, cinnamon)</label><br/>
-              <input type='text' id='input-box' value={this.state.ingredients} onChange={this.onChange} /><br/>
+              <input type='text' id='input-box' autoComplete="false" value={this.state.ingredients} onChange={this.onChange} /><br/>
               <input type='submit' value='Submit' id='submit' />
             </form>
         </div>
       )
     }
     return (
-    <div id='recipe-list'>
-      <h1>What's for Dinner?</h1>
+    <div id='recipe-container'>
+      <h1 onClick={this.returnHome.bind(this)} id='return-home'>What's for dinner?</h1>
       <RecipesList recipes={this.state.recipes} />
       <Pagination
           handlePageChange={this.handlePageChange}
