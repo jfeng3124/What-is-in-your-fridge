@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/', express.static(path.join(__dirname, '/../client/dist')));
 
 app.post('/api/ingredients', (req, res) => {
-  const ingredients = req.body.ingredientNames.split(',');
+  const ingredients = req.body.ingredientNames.split(', ');
   createList({ ingredientNames: ingredients });
   res.send('Sent!');
 });
@@ -25,7 +25,7 @@ app.get('/api/recipes', (req, res) => {
       list += ingredientList[i] + '%2C'
     }
     list = list.slice(0, list.length-3)
-    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=30&ranking=1&ingredients=${list}`, {
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=50&ranking=1&ingredients=${list}`, {
       headers: {
         'X-RapidAPI-Key': key
       },
