@@ -1,0 +1,52 @@
+#paginationContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 1rem;
+  align-items: center;
+  height: 2rem;
+  margin-bottom: 20px;
+}
+
+.paginationArrow {
+  border-radius: 100%;
+  border: solid 1px #8ccac7;
+  cursor: default;
+  display: inline-flex;
+  justify-content: space-around;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  min-width: 2rem;
+  cursor: pointer;
+  align-items: center;
+  height: 2rem;
+}
+
+.paginationBubble {
+  border-radius: 5000px;
+  border: solid 1px #8ccac7;
+  display: inline-flex;
+  justify-content: space-around;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  min-width: 2rem;
+  cursor: pointer;
+  align-items: center;
+  height: 2rem;
+}
+
+.paginationBubble:hover, .paginationArrow:hover, #selectedBubble {
+  background-color: #8ccac7; 
+  color: white;
+}
+
+.ellipsisBubble {
+  display: inline-flex;
+  justify-content: space-around;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  min-width: 2rem;
+  cursor: pointer;
+  align-items: center;
+  height: 2rem;
+}

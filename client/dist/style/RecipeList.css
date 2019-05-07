@@ -1,0 +1,26 @@
+#recipe-list {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#recipe-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+#recipe-photo {
+  border-radius: 3px;
+  margin-bottom: 15px;
+  height: 300px;
+  width: 400px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#recipe-photo:hover {
+  opacity: 0.8;
+  transition-duration: 0.4s;
+}
