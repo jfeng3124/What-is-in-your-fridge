@@ -38,15 +38,17 @@ app.get('/api/recipes', (req, res) => {
   })
 });
 
-app.get('/api/recipe', (req, res) => {
-  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.body.id}/information`, {
+app.get('/api/recipe/:id', (req, res) => {
+  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.params.id}/information`, {
     headers: {
       'X-RapidAPI-Key': key
     }
   })
     .then(response => {
       console.log('recipe info', response.data)
+      res.send(response.data)
     })
+    .catch(err => console.log(err))
 })
 
 app.listen(3000, function() {
