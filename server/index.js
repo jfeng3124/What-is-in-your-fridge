@@ -17,7 +17,7 @@ app.post('/api/ingredients', (req, res) => {
   res.send('Sent!');
 });
 
-app.get('/api/recipes', function (req, res) {
+app.get('/api/recipes', (req, res) => {
   findList(ingredients => {
     const ingredientList = ingredients[0].ingredientNames;
     let list = '';
@@ -37,6 +37,17 @@ app.get('/api/recipes', function (req, res) {
       .catch(err => console.log(err))
   })
 });
+
+app.get('/api/recipe', (req, res) => {
+  axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${req.body.id}/information`, {
+    headers: {
+      'X-RapidAPI-Key': key
+    }
+  })
+    .then(response => {
+      console.log('recipe info', response.data)
+    })
+})
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
