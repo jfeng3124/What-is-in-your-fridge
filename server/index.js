@@ -1,29 +1,43 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
-// var items = require('../database-mongo');
+const express = require('express');
+const bodyParser = require('body-parser');
+const { createList, findList, createRecipeList, deleteIngredient } = require('../database/controller');
+const path = require('path');
+const axios = require('axios');
+const key = require('../config.js');
+const List = require('../database/index');
+const app = express();
 
-var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/', express.static(path.join(__dirname, '/../client/dist')));
 
-// UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
+app.post('/api/ingredients', (req, res) => {
+  const ingredients = req.body.ingredientNames.split(',');
+  createList({ ingredientNames: ingredients });
+  res.send('Sent!');
+});
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
-
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
+app.get('/api/recipes', function (req, res) {
+  findList(ingredients => {
+    const ingredientList = ingredients[0].ingredientNames;
+    let list = '';
+    for (let i = 0; i < ingredientList.length; i++) {
+      list += ingredientList[i] + '%2C'
     }
-  });
+    list = list.slice(0, list.length-3)
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=30&ranking=1&ingredients=${list}`, {
+      headers: {
+        'X-RapidAPI-Key': key
+      },
+    })
+      .then(response => {
+        res.send(response.data);
+        createRecipeList({ recipes: response.data })
+      })
+      .catch(err => console.log(err))
+  })
 });
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
-

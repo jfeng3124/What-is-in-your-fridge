@@ -1,31 +1,36 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/mvp');
+const timestamp = require('mongoose-timestamp-plugin');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', function() {
   console.log('mongoose connection error');
 });
 
-db.once('open', function() {
+db.once('openUri', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+const ingredientsList = mongoose.Schema({
+  ingredientNames: [String],
 });
 
-var Item = mongoose.model('Item', itemSchema);
+const recipeList = mongoose.Schema({
+  recipes: [{
+    id: Number,
+    title: String,
+    likes: Number,
+    usedIngredientCount: Number
+  }]
+})
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
-    }
-  });
-};
+ingredientsList.plugin(timestamp, {
+  createdName: 'created_at',
+  disableUpdated: true
+});
 
-module.exports.selectAll = selectAll;
+const List = mongoose.model('List', ingredientsList);
+const Recipes = mongoose.model('Recipes', recipeList);
+
+module.exports = {List, Recipes};

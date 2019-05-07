@@ -1,5 +1,5 @@
 {
-  "name": "What's for Dinner?",
+  "name": "mvp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,10 +17,13 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.0",
     "mongoose": "^4.8.6",
+    "mongoose-timestamp-plugin": "0.0.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "unirest": "^0.6.0"
   }
 }
