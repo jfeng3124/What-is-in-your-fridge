@@ -44,14 +44,18 @@ class RecipeItem extends React.Component {
     const { recipe } = this.state;
     if (!recipe) {
       return (
-        <div>
-          <div id='recipe-title' onClick={this.getRecipeInfo.bind(this)}>{this.props.recipe.title}</div>
+        <div className='recipe-entry'>
           <img id='recipe-photo' src={this.props.recipe.image} onClick={this.getRecipeInfo.bind(this)} />
+          <div id='recipe-title' onClick={this.getRecipeInfo.bind(this)}>{this.props.recipe.title}</div>
         </div>
       )
     }
     return (
       <div>
+        <div className='recipe-entry'>
+          <img id='recipe-photo' src={this.props.recipe.image} onClick={this.getRecipeInfo.bind(this)} />
+          <div id='recipe-title' onClick={this.getRecipeInfo.bind(this)}>{this.props.recipe.title}</div>
+        </div>
         <Modal
           isOpen={this.state.modal}
           onAfterOpen={this.afterOpenModal}
@@ -66,8 +70,8 @@ class RecipeItem extends React.Component {
             Ingredients: <br/>
             <ul>{recipe.extendedIngredients.map(ingredient => <Ingredient ingredient={ingredient} key={ingredient.id} />)} </ul><br/>
             <div id='recipe-instructions'>Instructions: <br/><br/>{recipe.instructions}</div><br/>
+          </div>
         </div>
-      </div>
         </Modal>
       </div>
     );
