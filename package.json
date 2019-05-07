@@ -18,12 +18,16 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-react-css-modules": "^5.2.4",
     "body-parser": "^1.17.2",
+    "css-loader": "^2.1.1",
     "express": "^4.15.0",
     "mongoose": "^4.8.6",
     "mongoose-timestamp-plugin": "0.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-modal": "^3.8.1",
+    "style-loader": "^0.23.1",
     "unirest": "^0.6.0"
   }
 }
