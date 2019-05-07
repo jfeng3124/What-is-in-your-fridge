@@ -11,7 +11,7 @@ const createRecipeList = input => {
   let list = new Recipes();
   list.recipes = [];
   input.recipes.map(recipe => list.recipes.push(recipe));
-  console.log('list', list)
+  // console.log('list', list)
   list.save();
 }
 
