@@ -6,11 +6,14 @@
   align-items: center;
   height: 2rem;
   margin-bottom: 20px;
+  margin-top: 15px;
 }
 
 .paginationArrow {
+  border: 1px solid;
   border-radius: 100%;
-  border: solid 1px #8ccac7;
+  background-color: #FECEAB;
+  border-color: #355C7D;
   cursor: default;
   display: inline-flex;
   justify-content: space-around;
@@ -23,8 +26,10 @@
 }
 
 .paginationBubble {
-  border-radius: 5000px;
-  border: solid 1px #8ccac7;
+  border: 1px solid;
+  border-radius: 100%;
+  background-color: #FECEAB;
+  border-color: #355C7D;
   display: inline-flex;
   justify-content: space-around;
   margin-left: 0.5rem;
@@ -36,8 +41,9 @@
 }
 
 .paginationBubble:hover, .paginationArrow:hover, #selectedBubble {
-  background-color: #8ccac7; 
-  color: white;
+  background-color: #355C7D;
+  color: #FECEAB;
+  border-color: #355C7D;
 }
 
 .ellipsisBubble {

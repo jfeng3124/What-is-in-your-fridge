@@ -1,17 +1,24 @@
 body {
+  /* font-family: 'Futura', sans-serif; */
+  /* font-family: 'Poppins', sans-serif; */
   font-family: 'Raleway', sans-serif;
-  background-color: #ecc7c0;
-  color: #3c2f3c;
+  background-color: #FECEAB;
+  color: #355C7D;
 }
 
 label {
   font-size: 12px;
   font-style: italic;
+  color: #355C7D;
 }
 
 #app {
   display: flex;
   justify-content: center;
+}
+
+#return-home:hover {
+  cursor: pointer;
 }
 
 #main-page {
@@ -24,11 +31,11 @@ label {
 }
 
 #submit {
-  background-color: #ecc7c0;
+  background-color: #FECEAB;
   border: 1px solid;
-  border-color: #3c2f3c;
+  border-color: #355C7D;
   border-radius: 3px;
-  color: #3c2f3c;
+  color: #355C7D;
   width: 70px;
   height: 23px;
   margin-top: 30px;
@@ -37,22 +44,28 @@ label {
 }
 
 #submit:hover {
-  background-color: #3c2f3c;
-  color: #ecc7c0;
+  background-color:#355C7D;
+  color:#FECEAB;
   transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#submit:focus {
+  outline: none;
 }
 
 #input-box {
-  background-color: #ecc7c0;
+  background-color: #FECEAB;
   width: 1000px;
   height: 30px;
   border: none;
   border-bottom: 1px solid;
-  border-color: #3c2f3c;
+  border-color:  	#355C7D;
   margin-top: 15px;
+  color: #355C7D;
 }
 
 #input-box:focus {
   outline: none;
-  background-color: #ecc7c0;
+  background-color: #FECEAB;
 }
