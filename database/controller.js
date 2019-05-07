@@ -1,7 +1,6 @@
 const {List, Recipes} = require('./index');
 
 const createList = ingredients => {
-  // List.collection.drop()
   let list = new List();
   list.ingredientNames = ingredients.ingredientNames;
   list.save();
@@ -11,7 +10,6 @@ const createRecipeList = input => {
   let list = new Recipes();
   list.recipes = [];
   input.recipes.map(recipe => list.recipes.push(recipe));
-  // console.log('list', list)
   list.save();
 }
 
